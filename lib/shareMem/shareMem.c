@@ -116,3 +116,17 @@ int freeMemSpace(message *Memoria, int tam){
   }
   return -1;
 }
+
+/**
+ * Retorna el valor del indece donde hay espacio
+ * si no encuentra devuelve -1
+ * 
+*/
+int usedMemSpace(message *Memoria, int tam){
+  for (int i = 0; i < tam; i++){
+    if((Memoria[i].used)){
+      return i;
+    }
+  }
+  return -1;
+}

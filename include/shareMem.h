@@ -5,7 +5,6 @@
 typedef struct
 {
   int used;
-  int pid;
   int magic_number;
   char date[50];
   char hour[50];
@@ -29,5 +28,6 @@ int deleteMem(int shmid);
 int isEmpty(message *Memoria, int tam);
 int isFull(message *Memoria, int tam);
 int freeMemSpace(message *Memoria, int tam);
+int usedMemSpace(message *Memoria, int tam);
 
 #endif 

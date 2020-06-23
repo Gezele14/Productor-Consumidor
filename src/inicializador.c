@@ -36,7 +36,7 @@ void initializeMem(int tam);
 //Funcion Principal
 int main(int argc, char *argv[])
 {
-
+  system("clear");
   char *dir = "buffers";
   if (!chkDir(dir))
   {
@@ -146,7 +146,6 @@ void initializeMem(int tam)
   for (int i = 0; i < tamanoBuffer; i++)
   {
     Memoria[0].used = 0;
-    Memoria[0].pid = 0;
     Memoria[0].magic_number = 0;
     strcpy(Memoria[0].date, "");
     strcpy(Memoria[0].hour, "");
