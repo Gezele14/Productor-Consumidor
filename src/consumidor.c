@@ -113,13 +113,15 @@ int main(int argc, char *argv[])
 
   //Acciones del consumidor
   Variables[0].consumers += 1;
+  Variables[0].Tconsumers += 1;
 
   gettimeofday(&start, NULL); //inicia el contador de tiempo
 
   while (1){
-    if(Variables[0].endSys){
+    if(Variables[0].endSys == 1){
       gettimeofday(&end, NULL);
       double tiempo = (end.tv_sec - start.tv_sec);
+      Variables[0].totalUser += (end.tv_sec - start.tv_sec);
       deadLog = "Lectura de la finalizacion del sistema.";
       killConsumer(tiempo, deadLog);
     }else{
@@ -154,10 +156,17 @@ int main(int argc, char *argv[])
 
       buffer[index].used = 0;
 
+      acumBloq += (t2.tv_sec - t1.tv_sec);
+      acumWait += (t4.tv_sec - t3.tv_sec);
+
+      Variables[0].totalBloq += (t2.tv_sec - t1.tv_sec);
+      Variables[0].totalWait += (t4.tv_sec - t3.tv_sec);
+
       if(buffer[index].magic_number == getpid()%6){
         gettimeofday(&end, NULL);
         double tiempo = (end.tv_sec - start.tv_sec);
         deadLog = "PID % 6 coincidió con el número mágico.";
+        Variables[0].keyEliminated +=1;
         sem_up(Memc,0);
         sem_up(Vacio,0);
         killConsumer(tiempo, deadLog);
@@ -176,8 +185,6 @@ int main(int argc, char *argv[])
       }
 
     }
-    acumBloq += (t2.tv_sec - t1.tv_sec);
-    acumWait += (t4.tv_sec - t3.tv_sec);
   }
   return 0;
 }

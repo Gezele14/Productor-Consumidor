@@ -130,3 +130,13 @@ int usedMemSpace(message *Memoria, int tam){
   }
   return -1;
 }
+
+int msgInMem(message *Memoria, int tam){
+  int count = 0;
+  for (int i = 0; i < tam; i++){
+    if((Memoria[i].used)){
+      count += 1;
+    }
+  }
+  return count;
+}

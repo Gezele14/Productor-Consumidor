@@ -98,9 +98,17 @@ int main(int argc, char *argv[])
     exit(0);
   }
 
+  Global[0].Tproducers = 0;
+  Global[0].Tconsumers = 0;
   Global[0].consumers = 0;
   Global[0].producers = 0;
+  Global[0].keyEliminated =0;
+  Global[0].totalWait = 0;
+  Global[0].totalBloq = 0;
+  Global[0].totalUser = 0;
+  Global[0].totalKernel = 0;
   Global[0].idmem = Id_Memoria;
+  Global[0].totalMsg = 0;
   Global[0].memSize = tamanoBuffer;
   Global[0].endSys = 0;
 
@@ -109,35 +117,8 @@ int main(int argc, char *argv[])
   //inicializar los semaforos
   Memc=sem_create(dirName,10, 1,1);
   Lleno=sem_create(dirName,11, 1,0);
-  Vacio=sem_create(dirName,12, 1,tamanoBuffer);  
-  
-
-  int F = 0;
-  scanf("%d",&F); 
-
-  if(!deleteMem(Id_Memoria)){
-    printc("<I> Error a la hora de eliminar la memoria\n",1);
-  }else{
-    printc("<I> Memoria limpiada correctamente\n",3);
-  }
-
-  if(!deleteMem(Id_Variables)){
-    printc("<I> Error a la hora de eliminar la memoria\n",1);
-  }else{
-    printc("<I> Memoria limpiada correctamente\n",3);
-  }
-  /* if(!deleteMem(Memc)){
-    printc("<I> Error a la hora de eliminar la memoria\n",1);
-  }else{
-    printc("<I> Memoria limpiada correctamente\n",3);
-  } */  
-  
-  sem_erase(Memc); 
-  sem_erase(Lleno);
-  sem_erase(Vacio);
-  Global[0].endSys = 1;
+  Vacio=sem_create(dirName,12, 1,tamanoBuffer); 
    
-  
   return 0;
 }
 

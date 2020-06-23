@@ -13,9 +13,17 @@ typedef struct
 
 typedef struct
 {
+  int Tproducers;
+  int Tconsumers;
   int producers;
   int consumers;
+  int keyEliminated;
+  double totalWait;
+  double totalBloq;
+  double totalUser;
+  double totalKernel;
   int idmem;
+  int totalMsg;
   int memSize;
   int endSys;
 } var;
@@ -29,5 +37,6 @@ int isEmpty(message *Memoria, int tam);
 int isFull(message *Memoria, int tam);
 int freeMemSpace(message *Memoria, int tam);
 int usedMemSpace(message *Memoria, int tam);
+int msgInMem(message *Memoria, int tam);
 
 #endif 

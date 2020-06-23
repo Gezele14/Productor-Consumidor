@@ -13,7 +13,7 @@ CFLAGS = -Wall -lm
 LIBS = $(LIB)/$(LIB_UT) $(LIB)/$(LIB_SM) $(LIB)/$(LIB_SEM)
 
 
-ALL: APP Prod Cons
+ALL: APP Prod Cons Fin
  
 APP: 
 		$(CC) -o $(BIN)/$(APP) $(SRC) $(LIBS) -I$(INCLUDE) $(CFLAGS)
@@ -23,3 +23,6 @@ Prod:
 
 Cons:
 		$(CC) -o $(BIN)/consumidor consumidor.c $(LIBS) -I$(INCLUDE) $(CFLAGS)
+
+Fin:
+		$(CC) -o $(BIN)/finalizador finalizador.c $(LIBS) -I$(INCLUDE) $(CFLAGS)

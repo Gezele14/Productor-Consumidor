@@ -93,19 +93,21 @@ int main(int argc, char *argv[])
   usleep(150000);
 
   //Abre los semaforos que se utilizaran
-  Memc=sem_open(buffdir,10,1);
+  Memc = sem_open(buffdir,10,1);
   Lleno = sem_open(buffdir,11,1);
   Vacio = sem_open(buffdir,12,1);
 
   //Acciones del productor
   Variables[0].producers += 1;
+  Variables[0].Tproducers += 1;
 
   gettimeofday(&start, NULL); //inicia el contador de tiempo
 
   while (1){
-    if(Variables[0].endSys){
+    if(Variables[0].endSys == 2){
       gettimeofday(&end, NULL);
       double tiempo = (end.tv_sec - start.tv_sec);
+      Variables[0].totalKernel += (end.tv_sec - start.tv_sec);
       killProducer(tiempo);
     }else{
       //inicio zona critica
@@ -142,8 +144,16 @@ int main(int argc, char *argv[])
       char out[150];
       sprintf(out,"<M> Escrito un mensaje en %d:\n\t- Productores activos: %d\n\t- Consumidores activos: %d\n\n",index,Variables[0].producers,Variables[0].consumers);
       printc(out,5);
+
       numMsg += 1; 
+      Variables[0].totalMsg +=1;
     
+      acumBloq += (t2.tv_sec - t1.tv_sec);
+      acumWait += (t4.tv_sec - t3.tv_sec);
+
+      Variables[0].totalBloq += (t2.tv_sec - t1.tv_sec);
+      Variables[0].totalWait += (t4.tv_sec - t3.tv_sec);
+
       sem_up(Memc,0);
       sem_up(Lleno,0);
       // fin zona critica
@@ -155,8 +165,6 @@ int main(int argc, char *argv[])
       }
       
     }
-    acumBloq += (t2.tv_sec - t1.tv_sec);
-    acumWait += (t4.tv_sec - t3.tv_sec);
   }
   return 0;
 }
@@ -173,10 +181,10 @@ void killProducer(double tiempo){
   printc("\t- No. Mensajes Producidos: ",4);
   printf("%d\n", numMsg);
   printc("\t- Tiempo en espera: ",4);
-  printf("%.5f minutos\n", acumWait);
+  printf("%.5f minutos\n", acumWait/60);
   printc("\t- Tiempo en bloqueo: ",4);
-  printf("%.5f minutos\n", acumBloq);
+  printf("%.5f minutos\n", acumBloq/60);
   printc("\t- Tiempo total: ",4);
-  printf("%.5f minutos\n", tiempo);
+  printf("%.5f minutos\n", tiempo/60);
   exit(0);
 }
