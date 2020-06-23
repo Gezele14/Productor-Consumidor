@@ -1,5 +1,11 @@
 # Productor-Consumidor
 
+
+
+## Referencias
+
+1. Basado en el tutorial de [chuidiang.org](http://www.chuidiang.org/clinux/ipcs/mem_comp.php)
+
 ## Requerimientos
 
 1. Instalar gcc y make

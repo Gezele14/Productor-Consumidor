@@ -1,20 +1,13 @@
-#Util Library
-UTIL = util
-SRC_UTIL = $(UTIL).c 
-OBJ_UTIL= $(UTIL).o
-LIB_UTIL = lib$(UTIL).a
+#Libs
+All: libutil libsharemem libsemaphore
 
-#Compiler params
-CC = gcc
-CFLAGS = -c -Wall
+libutil: 
+		(cd util && make)
 
-#All
-ALL: $(LIB_UTIL)
 
-#LibUtil make
-$(LIB_UTIL): $(OBJ_UTIL)
-		ar rv $(LIB_UTIL) $(OBJ_UTIL)
-		ranlib $(LIB_UTIL)
+libsharemem:
+		(cd shareMem && make)
 
-$(OBJ_UTIL): $(SRC_UTIL)
-		$(CC) $(CFLAGS) $(SRC_UTIL)
+libsemaphore:
+		(cd semaphore && make)
+
