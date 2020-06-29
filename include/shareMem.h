@@ -22,6 +22,8 @@ typedef struct
   double totalBloq;
   double totalUser;
   double totalKernel;
+  int readIndex;
+  int writeIndex;
   int idmem;
   int totalMsg;
   int memSize;
@@ -35,8 +37,8 @@ int getMem(message **Memoria, int idMem);
 int deleteMem(int shmid);
 int isEmpty(message *Memoria, int tam);
 int isFull(message *Memoria, int tam);
-int freeMemSpace(message *Memoria, int tam);
-int usedMemSpace(message *Memoria, int tam);
+int freeMemSpace(message *Memoria, int tam, int index);
+int usedMemSpace(message *Memoria, int tam, int index);
 int msgInMem(message *Memoria, int tam);
 
 #endif 

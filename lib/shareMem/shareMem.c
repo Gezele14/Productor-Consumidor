@@ -108,13 +108,18 @@ int isFull(message *Memoria, int tam){
  * si no encuentra devuelve -1
  * 
 */
-int freeMemSpace(message *Memoria, int tam){
-  for (int i = 0; i < tam; i++){
-    if(!(Memoria[i].used)){
-      return i;
+int freeMemSpace(message *Memoria, int tam, int index){
+  int a = index;
+  while(1){
+    if (a >= tam){
+      a = 0;
     }
+    
+    if(!(Memoria[a].used)){
+      return a;
+    }
+    a += 1;
   }
-  return -1;
 }
 
 /**
@@ -122,13 +127,17 @@ int freeMemSpace(message *Memoria, int tam){
  * si no encuentra devuelve -1
  * 
 */
-int usedMemSpace(message *Memoria, int tam){
-  for (int i = 0; i < tam; i++){
-    if((Memoria[i].used)){
-      return i;
+int usedMemSpace(message *Memoria, int tam, int index){
+  int a = index;
+  while(1){
+    if (a >= tam){
+      a = 0;
     }
+    if((Memoria[a].used)){
+      return a;
+    }
+    a += 1;
   }
-  return -1;
 }
 
 int msgInMem(message *Memoria, int tam){
